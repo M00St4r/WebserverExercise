@@ -19,7 +19,7 @@ async function guess() {
     if (guessInput) {
 
         //TODO: retry when guessInput is not a number
-        let guess: number = +guessInput
+        let guess: number = +guessInput;
 
         const res = await fetch("/guess", {
             method: "POST",
@@ -44,7 +44,7 @@ async function guess() {
         }
     }
     else{
-        alert("need to enter a number first")
+        alert("need to enter a number first");
     }
 }
 

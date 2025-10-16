@@ -35,9 +35,9 @@ Deno.serve({ hostname, port }, async (request: Request): Promise<Response> => {
     let result: boolean = false;
     let rand: number = Math.floor(Math.random() * 10);
     if (JSON.parse(guess) == rand) {
-      result = true
+      result = true;
     } else {
-      result = false
+      result = false;
     }
     body = { number: rand, result: result };
     return new Response(JSON.stringify(body), { status, headers });
