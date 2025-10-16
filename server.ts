@@ -28,25 +28,18 @@ Deno.serve({ hostname, port }, async (request: Request): Promise<Response> => {
     "Content-Type": "application/json",
   });
 
-  if(url.pathname === "/register" && request.method === "POST") {
-    const { username, password } = await request.json();
-    const stmt = db.prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    stmt.run(username, password);
-    body = { message: "Successfully registered" };
-    return new Response(JSON.stringify(body), { status, headers });
-  }
-
-  if(url.pathname === "/login" && request.method === "POST") {
-    const { username, password } = await request.json();
-    const stmt = db.prepare("SELECT id FROM users WHERE username = ? AND password = ?");
-    const result = stmt.all(username, password);
-
-    if (result.length > 0) {
-      body = { success: true, message: "Login ok" };
+  if (url.pathname === "/guess" && request.method === "POST") {
+    const { guess } = await request.json();
+    //const stmt = db.prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+    //stmt.run(username, password);
+    let result: boolean = false;
+    let rand: number = Math.floor(Math.random() * 10);
+    if (JSON.parse(guess) == rand) {
+      result = true
     } else {
-      status = 401;
-      body = { success: false, message: "Login failed" };
+      result = false
     }
+    body = { number: rand, result: result };
     return new Response(JSON.stringify(body), { status, headers });
   }
 

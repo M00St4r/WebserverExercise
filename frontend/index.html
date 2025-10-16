@@ -8,16 +8,14 @@
     <script type="module" src="script.js" defer></script>
 </head>
 <body>
-    <div id="loginForm">
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button id="registerBtn">Register</button>
-        <button id="loginBtn">Login</button>
+    <div id="loginForm" style="display: block;">
+        <input type="text" id="guess" placeholder="input a number from 0 to 9">
+        <button id="guessBtn">guess</button>
     </div>
 
-    <div id="welcome" style="display:none;">
-        <p id="greeting"></p>
-        <button id="logoutBtn">Logout</button>
+    <div id="result-container" style="display:block;">
+        <h1>Result</h1>
+        <p id="result"></p>
     </div>
 </body>
 </html>
