@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,32 @@
     <!-- Script wird defer geladen, damit DOM verfügbar ist -->
     <script type="module" src="script.js" defer></script>
 </head>
+
 <body>
-    <div id="loginForm" style="display: block;">
-        <input type="text" id="guess" placeholder="input a number from 0 to 9">
-        <button id="guessBtn">guess</button>
+    <div id="loginForm">
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="registerBtn">Register</button>
+        <button id="loginBtn">Login</button>
     </div>
 
-    <div id="result-container" style="display:block;">
-        <h1>Result</h1>
-        <p id="result"></p>
+    <div id="welcome" style="display:none;">
+        <p id="greeting"></p>
+        <button id="logoutBtn">Logout</button>
+        <input type="text" id="guess" placeholder="input a number from 0 to 9">
+        <button id="guessBtn">guess</button>
+        <div id="result-container" style="display:block;">
+            <h1>Result</h1>
+            <p id="result"></p>
+        </div>
+        <div class="container" id="scoreboard-container">
+            <h1>scoreboard</h1>
+            <p>name   games  wins</p>
+            <div id="scoreboard">
+
+            </div>
+        </div>
     </div>
 </body>
+
 </html>
