@@ -3,13 +3,10 @@ let currentID: number;
 
 async function guess() {
     const guessInput: HTMLInputElement = (document.getElementById("guess") as HTMLInputElement);
-    
-    const scoreboard: HTMLDivElement = document.querySelector("#scoreboard")!;
 
     if (!(guessInput.value === "")) {
 
-        //TODO: retry when guessInput is not a number
-        let guess: number = +guessInput.value;
+        const guess: number = +guessInput.value;
 
         const res = await fetch("/guess", {
             method: "POST",
@@ -33,20 +30,26 @@ async function guess() {
             result.innerText = "Guessed wrong. Goal was: " + data.number;
         }
 
-        let scores = data.scores;
+        const scores = data.scores;
         //console.log(scores);
-        scoreboard.innerHTML = "";
-        for (var user of scores) {
-            let p: HTMLParagraphElement = document.createElement("p");
-            p.innerText = user.username + "  " + user.games + "  " + user.wins;
-            scoreboard.appendChild(p);
-        }
+        updateScoreboard(scores);
+        
 
         guessInput.value = "";
     }
     else {
         alert("need to enter a number first");
     }
+}
+
+function updateScoreboard(_scores: any){
+    const scoreboard: HTMLDivElement = document.querySelector("#scoreboard")!;
+    scoreboard.innerHTML = "";
+        for (const user of _scores) {
+            const p: HTMLParagraphElement = document.createElement("p");
+            p.innerText = user.username + "  " + user.games + "  " + user.wins;
+            scoreboard.appendChild(p);
+        }
 }
 //#region acount functionality
 async function register() {
@@ -94,13 +97,8 @@ async function login() {
         const welcomeElem = document.getElementById("welcome");
         if (welcomeElem) welcomeElem.style.display = "block";
 
-        let scores = data.scores;
-        //console.log(scores);
-        for (var user of scores) {
-            let p: HTMLParagraphElement = document.createElement("p");
-            p.innerText = user.username + "  " + user.games + "  " + user.wins;
-            scoreboard.appendChild(p);
-        }
+        const scores = data.scores;
+        updateScoreboard(scores);
 
     } else {
         alert(data.message);

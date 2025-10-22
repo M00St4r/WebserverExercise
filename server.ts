@@ -34,7 +34,7 @@ Deno.serve({ hostname, port }, async (request: Request): Promise<Response> => {
     const { guess, id } = await request.json();
 
     let result: boolean = false;
-    let rand: number = Math.floor(Math.random() * 10);
+    const rand: number = Math.floor(Math.random() * 10);
 
     const playerHistory = db.prepare("SELECT games, wins FROM users WHERE id = ?");
     const playerData = playerHistory.all(id)[0];

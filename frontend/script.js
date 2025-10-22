@@ -3,10 +3,8 @@ let currentUser = null;
 let currentID;
 async function guess() {
     const guessInput = document.getElementById("guess");
-    const scoreboard = document.querySelector("#scoreboard");
     if (!(guessInput.value === "")) {
-        //TODO: retry when guessInput is not a number
-        let guess = +guessInput.value;
+        const guess = +guessInput.value;
         const res = await fetch("/guess", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -25,18 +23,22 @@ async function guess() {
         else {
             result.innerText = "Guessed wrong. Goal was: " + data.number;
         }
-        let scores = data.scores;
+        const scores = data.scores;
         //console.log(scores);
-        scoreboard.innerHTML = "";
-        for (var user of scores) {
-            let p = document.createElement("p");
-            p.innerText = user.username + "  " + user.games + "  " + user.wins;
-            scoreboard.appendChild(p);
-        }
+        updateScoreboard(scores);
         guessInput.value = "";
     }
     else {
         alert("need to enter a number first");
+    }
+}
+function updateScoreboard(_scores) {
+    const scoreboard = document.querySelector("#scoreboard");
+    scoreboard.innerHTML = "";
+    for (const user of _scores) {
+        const p = document.createElement("p");
+        p.innerText = user.username + "  " + user.games + "  " + user.wins;
+        scoreboard.appendChild(p);
     }
 }
 //#region acount functionality
@@ -78,13 +80,8 @@ async function login() {
         const welcomeElem = document.getElementById("welcome");
         if (welcomeElem)
             welcomeElem.style.display = "block";
-        let scores = data.scores;
-        //console.log(scores);
-        for (var user of scores) {
-            let p = document.createElement("p");
-            p.innerText = user.username + "  " + user.games + "  " + user.wins;
-            scoreboard.appendChild(p);
-        }
+        const scores = data.scores;
+        updateScoreboard(scores);
     }
     else {
         alert(data.message);
